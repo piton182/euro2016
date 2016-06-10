@@ -4,6 +4,7 @@ import { ReactiveDict } from 'meteor/reactive-dict'
 
 import { Matches } from '../../api/matches.js'
 import { Bets } from '../../api/bets.js'
+import { Results } from '../../api/results.js'
 
 import './matches.html'
 
@@ -16,18 +17,29 @@ Template.App_matches.onCreated(function() {
   })
 
   this.subscribe('matches')
+  this.subscribe('results')
   this.subscribe('bets.my', () => {
     const matches = Matches.findOne().matches.reduce((acc, match) => {
-      acc[match.number] = match;
-      return acc;
+      acc[match.number] = match
+      return acc
     }, {})
-    const myBetsDoc = Bets.findOne();
+    // bets
+    const myBetsDoc = Bets.findOne()
     if (myBetsDoc) {
-      const myBets = myBetsDoc.bets;
+      const myBets = myBetsDoc.bets
       myBets.forEach((bet) => { matches[bet.matchNumber].bet = bet.bet })
     }
     Object.keys(matches).forEach((matchNumber) => {
       matches[matchNumber].bet = matches[matchNumber].bet || {}
+    })
+    //results
+    const resultsDoc = Results.findOne()
+    if (resultsDoc) {
+      const results = resultsDoc.results;
+      results.forEach((result) => { matches[result.matchNumber].result = result.result })
+    }
+    Object.keys(matches).forEach((matchNumber) => {
+      matches[matchNumber].result = matches[matchNumber].result || {}
     })
     this.state.set('matches', matches)
   })
@@ -53,7 +65,14 @@ Template.App_matches.helpers({
   disabledScore(match) {
     const instance = Template.instance()
     return !instance.state.get('placingBets') || match.bettingClosed;
-  }
+  },
+  result(match, team) {
+    if (match.result[team] === undefined) {
+      return '?'
+    } else {
+      return match.result[team]
+    }
+  },
 })
 
 Template.App_matches.events({
