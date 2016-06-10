@@ -18,6 +18,7 @@
               {{team1}}
             </td>
             <td>
+              <!-- TODO:  -->
               ? - ?
             </td>
             <td>
@@ -33,14 +34,14 @@
                   type="number" min="0" pattern="\d*"
                   id="match{{number}}:{{team1}}"
                   value="{{score match team1}}"
-                  disabled="{{notPlacingBets}}" />
+                  disabled="{{disabledScore match}}" />
                 <input
                   style="width: 30px"
                   class="js-score"
                   type="number" min="0" pattern="\d*"
                   id="match{{number}}:{{team2}}"
                   value="{{score match team2}}"
-                  disabled="{{notPlacingBets}}" />
+                  disabled="{{disabledScore match}}" />
                 {{team2}}
               {{/if}}
             </td>

@@ -43,13 +43,6 @@ Template.App_matches.helpers({
     const instance = Template.instance()
     return instance.state.get('placingBets');
   },
-  notPlacingBets() {
-    const instance = Template.instance()
-    return !instance.state.get('placingBets');
-  },
-  noBet(match) {
-    return !(match.bet.team1Score || match.bet.team2Score);
-  },
   score(match, team) {
     return match.bet[team];
   },
@@ -57,6 +50,10 @@ Template.App_matches.helpers({
     const instance = Template.instance()
     return instance.state.get('showMyBets')
   },
+  disabledScore(match) {
+    const instance = Template.instance()
+    return !instance.state.get('placingBets') || match.bettingClosed;
+  }
 })
 
 Template.App_matches.events({
