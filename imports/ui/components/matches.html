@@ -15,18 +15,20 @@
           <tr>
             <td>{{number}}</td>
             <td>
-              {{team1}}
+              <img src="{{flagImageUrl team1}}" style="width: 20px; height: 20px;" />
             </td>
-            <td>
-              {{result match team1}} - {{result match team2}}
+            <td>{{team1}}</td>
+            <td>{{result match team1}} - {{result match team2}}</td>
+            <td>{{team2}}</td>
+            <td><img src="{{flagImageUrl team2}}" style="width: 20px; height: 20px;" />
             </td>
+            {{#if showBets}}
+            <td>my bet:</td>
             <td>
-              {{team2}}
+                <img src="{{flagImageUrl team1}}" style="width: 20px; height: 20px;" />
             </td>
+            <td>{{team1}}</td>
             <td>
-              {{#if showBets}}
-                my bet:
-                {{team1}}
                 <input
                   style="width: 30px"
                   class="js-score"
@@ -41,9 +43,12 @@
                   id="match{{number}}:{{team2}}"
                   value="{{score match team2}}"
                   disabled="{{disabledScore match}}" />
-                {{team2}}
-              {{/if}}
             </td>
+            <td>{{team2}}</td>
+            <td>
+              <img src="{{flagImageUrl team2}}" style="width: 20px; height: 20px;" />
+            </td>
+            {{/if}}
           </tr>
         {{/with}}
       {{/each}}

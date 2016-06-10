@@ -73,6 +73,9 @@ Template.App_matches.helpers({
       return match.result[team]
     }
   },
+  flagImageUrl(team) {
+    return "/images/flags/" + team.toLowerCase() + ".png";
+  }
 })
 
 Template.App_matches.events({
