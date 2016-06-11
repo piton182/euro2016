@@ -1,3 +1,3 @@
-import { Mongo } from 'meteor/mongo';
+import { Mongo } from 'meteor/mongo'
 
-export const Leaderboards = new Mongo.Collection('leaderboards');
+export const Leaderboards = new Mongo.Collection('leaderboards')
