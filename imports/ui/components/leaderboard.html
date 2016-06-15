@@ -1,29 +1,24 @@
 <template name="App_leaderboard">
-  <table style="padding-top: 50px">
-    <tr>
-      <td>1</td>
-      <td>alexandra.emshanova@gmail.com</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>dmitry.kouznetsov@gmail.com</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>ivan.lapshin@fastdev.se</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>alexey.emshanov@gmail.com</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>shteynderberg182@gmail.com</td>
-      <td>2</td>
-    </tr>
-  </table>
+  <div style="padding-top: 20px">
+    <span>
+      Leaders after match:
+      <img src="{{flagImageUrl lastMatch.team1}}" style="width: 20px; height: 20px;"/>
+      {{lastMatchTeamsAndScore}}
+      <img src="{{flagImageUrl lastMatch.team2}}" style="width: 20px; height: 20px;"/>
+    </span>
+    <!-- <td style="background-color: #FF9999">0</td> -->
+    <!-- <td style="background-color: #FFFF99">+1</td> -->
+    <!-- <td style="background-color: #66FF99">+3</td> -->
+    <!-- <td style="background-color: #C8C8C8">-</td> -->
+    <table style="margin-top: 20px">
+      {{#each user in users}}
+      <tr>
+        <td>{{user.position}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.score}}</td>
+        <td style="{{deltaStyle user.delta}}">{{user.delta}}</td>
+      </tr>
+      {{/each}}
+    </table>
+  </div>
 </template>
