@@ -15,8 +15,8 @@
       <tr>
         <td>{{user.position}}</td>
         <td>{{user.name}}</td>
+        <td style="{{deltaStyle user.delta}}">{{#if user.delta}}+{{user.delta}}{{/if}}</td>
         <td>{{user.score}}</td>
-        <td style="{{deltaStyle user.delta}}">{{user.delta}}</td>
       </tr>
       {{/each}}
     </table>
