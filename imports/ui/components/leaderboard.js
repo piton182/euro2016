@@ -30,6 +30,9 @@ Template.App_leaderboard.helpers({
     + ' '
     + lastMatch.team2
   },
+  emptyDelta(user) {
+    return user.delta === undefined
+  },
   deltaStyle(delta) {
     if (delta === 3) {
       return "background-color: #66FF99"
