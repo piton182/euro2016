@@ -1,22 +1,46 @@
 <template name="App_leaderboard">
   <div style="padding-top: 20px">
-    <span>
-      after:
+    <span style="padding-left: 30px; color: blue; font-weight: bolder">
+      {{#with leaderboard}}
+        {{date}}
+      {{/with}}
+      <!-- after:
       <img src="{{flagImageUrl lastMatch.team1}}" style="width: 20px; height: 20px;"/>
-      {{lastMatchTeamsAndScore}}
-      <img src="{{flagImageUrl lastMatch.team2}}" style="width: 20px; height: 20px;"/>
+      {{lastMatchTeamsAndScoreText}}
+      <img src="{{flagImageUrl lastMatch.team2}}" style="width: 20px; height: 20px;"/> -->
     </span>
     <!-- <td style="background-color: #FF9999">0</td> -->
     <!-- <td style="background-color: #FFFF99">+1</td> -->
     <!-- <td style="background-color: #66FF99">+3</td> -->
     <!-- <td style="background-color: #C8C8C8">-</td> -->
     <table style="margin-top: 20px">
+      <tr>
+        <th>#</th>
+        <th>name</th>
+        <th>score</th>
+        {{#with leaderboard}}
+          {{#each match in matches}}
+            <th style="font-size: 10px">
+              <img src="{{flagImageUrl match 'team1'}}" style="width: 20px; height: 20px;"/>
+              {{matchToString match}}
+              <img src="{{flagImageUrl match 'team2'}}" style="width: 20px; height: 20px;"/>
+            </th>
+          {{/each}}
+        {{/with}}
+      </tr>
       {{#each user in users}}
       <tr>
         <td>{{user.position}}</td>
         <td>{{user.name}}</td>
-        <td style="{{deltaStyle user.delta}}">{{#unless emptyDelta user}}+{{user.delta}}{{/unless}}</td>
+        <!-- <td style="{{deltaStyle user.delta}}">{{#unless emptyDelta user}}+{{user.delta}}{{/unless}}</td> -->
         <td>{{user.score}}</td>
+        {{#with leaderboard}}
+          {{#each match in matches}}
+            <td style="text-align: center; {{deltaStyle user match}}">
+              {{deltaToString user match}}
+            </td>
+          {{/each}}
+        {{/with}}
       </tr>
       {{/each}}
     </table>

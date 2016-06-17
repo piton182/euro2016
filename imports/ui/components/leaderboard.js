@@ -13,27 +13,40 @@ Template.App_leaderboard.helpers({
   users() {
     return Leaderboards.findOne().users
   },
-  flagImageUrl(team) {
-    return "/images/flags/" + team.toLowerCase() + ".png";
+  flagImageUrl(match, team) {
+    const teamName = Object.keys(match.result)[parseInt(team.charAt(team.length-1))-1]
+    return "/images/flags/" + teamName.toLowerCase() + ".png";
   },
   lastMatch() {
     return Leaderboards.findOne().lastMatch
   },
-  lastMatchTeamsAndScore() {
-    const lastMatch = Leaderboards.findOne().lastMatch
+  matchToString(match) {
+    const team1 = Object.keys(match.result)[0]
+    const team2 = Object.keys(match.result)[1]
     return ''
-    + lastMatch.team1
+    + team1
     + ' '
-    + lastMatch.result[lastMatch.team1]
+    + match.result[team1]
     + ' - '
-    + lastMatch.result[lastMatch.team2]
+    + match.result[team2]
     + ' '
-    + lastMatch.team2
+    + team2
   },
   emptyDelta(user) {
     return user.delta === undefined
   },
-  deltaStyle(delta) {
+  deltaToString(user, match) {
+    const delta = user.deltas[match.matchNumber].delta
+    if (delta === undefined) {
+      return ''
+    } else if (typeof delta !== 'number') {
+      return '-'
+    } else {
+      return '+' + delta
+    }
+  },
+  deltaStyle(user, match) {
+    const delta = user.deltas[match.matchNumber].delta
     if (delta === 3) {
       return "background-color: #66FF99"
     } else if (delta === 1) {
@@ -43,5 +56,8 @@ Template.App_leaderboard.helpers({
     } else {
       return "background-color: #C8C8C8"
     }
+  },
+  leaderboard() {
+    return Leaderboards.findOne()
   }
 })
