@@ -6,6 +6,8 @@ import { Matches } from '../../api/matches.js'
 import { Bets } from '../../api/bets.js'
 import { Results } from '../../api/results.js'
 
+import moment from 'moment'
+
 import './matches.html'
 
 Template.App_matches.onCreated(function() {
@@ -63,8 +65,7 @@ Template.App_matches.helpers({
     return instance.state.get('showMyBets')
   },
   disabledScore(match) {
-    const instance = Template.instance()
-    return !instance.state.get('placingBets') || match.bettingClosed;
+    return (match.dt && moment(match.dt).utc().diff(moment().utc(), 'h') < 1) || match.bettingClosed
   },
   result(match, team) {
     if (match.result[team] === undefined) {
