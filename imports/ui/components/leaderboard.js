@@ -47,6 +47,9 @@ Template.App_leaderboard.helpers({
   },
   deltaStyle(user, match) {
     const delta = user.deltas[match.matchNumber].delta
+    if (delta === undefined) {
+      return null
+    }
     if (delta === 3) {
       return "background-color: #66FF99"
     } else if (delta === 1) {
