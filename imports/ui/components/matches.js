@@ -16,15 +16,17 @@ Template.App_matches.onCreated(function() {
     matches: {},
     showMyBets: false,
     placingBets: false,
+    showGroupStageMatches: false,
   })
 
   this.subscribe('matches')
   this.subscribe('results')
   this.subscribe('bets.my', () => {
-    const matches = Matches.findOne().matches.reduce((acc, match) => {
-      acc[match.number] = match
-      return acc
-    }, {})
+    const matches = Matches.findOne().matches
+      .reduce((acc, match) => {
+        acc[match.number] = match
+        return acc
+      }, {})
     // bets
     const myBetsDoc = Bets.findOne()
     if (myBetsDoc) {
@@ -52,6 +54,7 @@ Template.App_matches.helpers({
     const instance = Template.instance()
     const matches = instance.state.get('matches')
     return Object.keys(matches).map((key) => { return matches[key] })
+      .filter((match) => { return instance.state.get('showGroupStageMatches') || match.number > 36 });
   },
   placingBets() {
     const instance = Template.instance()
