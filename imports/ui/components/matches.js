@@ -68,7 +68,8 @@ Template.App_matches.helpers({
     return instance.state.get('showMyBets')
   },
   disabledScore(match) {
-    return (match.dt && moment(match.dt).utc().diff(moment().utc(), 'h') <= 0) || match.bettingClosed
+    const instance = Template.instance()
+    return !instance.state.get('placingBets') || (match.dt && moment(match.dt).utc().diff(moment().utc(), 'm') <= 0 ) || match.bettingClosed
   },
   result(match, team) {
     if (match.result[team] === undefined) {
